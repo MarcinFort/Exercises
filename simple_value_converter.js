@@ -76,7 +76,7 @@ function convertDecToHex(n) {
        exponent += 1; // Equal to the length of the hex number; will be used for the loop later
     }
     	
-   var hexValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E"];
+   var hexValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
 	
 	// Loop through all positions of the hex number   
    
@@ -91,4 +91,29 @@ function convertDecToHex(n) {
    }
    
    return arr.join("");
+}
+
+function convertBinaryToHex(n) {
+    var arr = n.toString().split("").map(function(item) {return parseInt(item);});
+     
+    var hexValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+
+    var arrHex = [];
+    var tempVal = 0;
+    var counterOfRepetitions = 0;
+    var multiplier = 1;
+    
+    for (i = arr.length-1; i >= 0; i--) {
+        tempVal += multiplier * arr[i];
+        multiplier *= 2;
+        counterOfRepetitions++;
+        if (counterOfRepetitions % 4 === 0 || i == 0) {
+            arrHex.unshift(hexValues[tempVal]);
+            tempVal = 0;
+            multiplier = 1;
+        }
+        console.log(tempVal);
+    }
+
+    return arrHex.join("");
 }
