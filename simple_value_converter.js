@@ -117,3 +117,54 @@ function convertBinaryToHex(n) {
 
     return arrHex.join("");
 }
+
+
+function convertHexToBinary(n) {
+    var arr = n.toString().split("");
+    console.log(arr);
+    var arrBin = [];
+    // This seems to be the simplest solution in this case
+    for (i = arr.length-1; i >= 0; i--) {
+        switch (arr[i]) {
+            case '0': arrBin.unshift("0", "0", "0", "0");
+            break;
+            case '1': arrBin.unshift("0", "0", "0", "1");
+            break;
+            case '2': arrBin.unshift("0", "0", "1", "0");
+            break;
+            case '3': arrBin.unshift("0", "0", "1", "1");
+            break;
+            case '4': arrBin.unshift("0", "1", "0", "0");
+            break;
+            case '5': arrBin.unshift("0", "1", "0", "1");
+            break;
+            case '6': arrBin.unshift("0", "1", "1", "0");
+            break;
+            case '7': arrBin.unshift("0", "1", "1", "1");
+            break;
+            case '8': arrBin.unshift("1", "0", "0", "0");
+            break;
+            case '9': arrBin.unshift("1", "0", "0", "1");
+            break;
+            case 'A': arrBin.unshift("1", "0", "1", "0");
+            break;
+            case 'B': arrBin.unshift("1", "0", "1", "1");
+            break;
+            case 'C': arrBin.unshift("1", "1", "0", "0");
+            break;
+            case 'D': arrBin.unshift("1", "1", "0", "1");
+            break;
+            case 'E': arrBin.unshift("1", "1", "1", "0");
+            break;
+            case 'F': arrBin.unshift("1", "1", "1", "1");
+            break;
+        }
+        console.log(arrBin);
+    }
+        while (arrBin[0] === "0") {
+            arrBin.shift();
+        }
+        console.log(arrBin);
+        
+        return arrBin.join("");
+}
