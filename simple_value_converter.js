@@ -168,3 +168,43 @@ function convertHexToBinary(n) {
         
         return arrBin.join("");
 }
+
+
+function convertDecToOctal(n) {
+   var arr = [];
+   var highestPower = 1;
+   var exponent = 1;
+   var counter = 0;
+
+   // Find the highest power of 8 in the n
+
+   while (highestPower*8 <= n) {
+       highestPower *= 8;
+       exponent += 1; // Equal to the length of the octal number; will be used for the loop later
+    }
+
+   // Loop through all positions of the octal number   
+
+   for (i = 0; i < exponent; i++) {
+      while (n - highestPower >= 0) {
+         n -= highestPower;
+         counter++;
+      }
+     arr.push(counter);
+     counter = 0;
+     highestPower /= 8;
+   }
+
+   return arr.join("");
+}
+
+function convertOctalToDec(n) {
+    var arr = n.toString().split("").map(function(item) {return parseInt(item);});
+    var result = 0;
+    var multiplier = 1;
+    for (i = arr.length-1; i >= 0; i--) {
+        result += multiplier * arr[i];
+        multiplier *= 8;
+    }
+    return(result);
+}
