@@ -226,3 +226,45 @@ function convertBinaryToOctal(n) {
     return arrOct.join("");
 }
 
+
+function convertHexToOctal(n) {
+    return convertDecToOctal(convertHexToDec(n));
+	// A crude workaround for now; still trying to find an algorithm for conversion which does not involve decimal at any stage
+}
+
+function convertOctalToBinary(n) {
+    var arr = n.toString().split("");
+    var arrBin = [];
+    // This seems to be the simplest solution in this case
+    for (i = arr.length-1; i >= 0; i--) {
+        switch (arr[i]) {
+            case '0': arrBin.unshift("0", "0", "0");
+            break;
+            case '1': arrBin.unshift("0", "0", "1");
+            break;
+            case '2': arrBin.unshift("0", "1", "0");
+            break;
+            case '3': arrBin.unshift("0", "1", "1");
+            break;
+            case '4': arrBin.unshift("1", "0", "0");
+            break;
+            case '5': arrBin.unshift("1", "0", "1");
+            break;
+            case '6': arrBin.unshift("1", "1", "0");
+            break;
+            case '7': arrBin.unshift("1", "1", "1");
+            break;
+        }
+    }
+
+    while (arrBin[0] === "0") {
+        arrBin.shift();
+    }
+
+    return arrBin.join("");
+}
+
+function convertOctalToHex(n) {
+    return convertDecToHex(convertOctalToDec(n));
+        // A crude workaround for now; still trying to find an algorithm for conversion which does not involve decimal at any stage
+}
