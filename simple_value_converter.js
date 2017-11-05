@@ -107,12 +107,11 @@ function convertBinaryToHex(n) {
         tempVal += multiplier * arr[i];
         multiplier *= 2;
         counterOfRepetitions++;
-        if (counterOfRepetitions % 4 === 0 || i == 0) {
+        if (counterOfRepetitions % 4 === 0 || i === 0) {
             arrHex.unshift(hexValues[tempVal]);
             tempVal = 0;
             multiplier = 1;
         }
-        console.log(tempVal);
     }
 
     return arrHex.join("");
@@ -121,7 +120,6 @@ function convertBinaryToHex(n) {
 
 function convertHexToBinary(n) {
     var arr = n.toString().split("");
-    console.log(arr);
     var arrBin = [];
     // This seems to be the simplest solution in this case
     for (i = arr.length-1; i >= 0; i--) {
@@ -159,12 +157,10 @@ function convertHexToBinary(n) {
             case 'F': arrBin.unshift("1", "1", "1", "1");
             break;
         }
-        console.log(arrBin);
     }
         while (arrBin[0] === "0") {
             arrBin.shift();
         }
-        console.log(arrBin);
         
         return arrBin.join("");
 }
@@ -208,3 +204,25 @@ function convertOctalToDec(n) {
     }
     return(result);
 }
+
+function convertBinaryToOctal(n) {
+    var arr = n.toString().split("").map(function(item) {return parseInt(item);});
+    var arrOct = [];
+    var tempVal = 0;
+    var counterOfRepetitions = 0;
+    var multiplier = 1;
+
+    for (i = arr.length-1; i >= 0; i--) {
+        tempVal += multiplier * arr[i];
+        multiplier *= 2;
+        counterOfRepetitions++;
+        if (counterOfRepetitions % 3 === 0 || i === 0) {
+            arrOct.unshift(tempVal);
+            tempVal = 0;
+            multiplier = 1;
+        }
+    }
+
+    return arrOct.join("");
+}
+
