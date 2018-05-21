@@ -2,8 +2,16 @@ class FontChooser extends React.Component {
 
     constructor(props) {
 		super(props);
+		this.state = {
+			buttonsHidden: true
+		}
     }
-    
+	
+	handleClick() {
+		this.setState({
+			buttonsHidden: this.state.buttonsHidden ? false : true
+		})
+	}
 
     render() {
 		
@@ -14,11 +22,11 @@ class FontChooser extends React.Component {
 
 		return(
 	       <div>
-	       <input type="checkbox" id="boldCheckbox" hidden='true'/>
-	       <button id="decreaseButton" hidden='true'>-</button>
-	       <span id="fontSizeSpan" hidden='true'>{this.props.size}</span>
-	       <button id="increaseButton" hidden='true'>+</button>
-	       <span id="textSpan" style={style}>{this.props.text}</span>
+	       <input type="checkbox" id="boldCheckbox" hidden={this.state.buttonsHidden} />
+	       <button id="decreaseButton" hidden={this.state.buttonsHidden}>-</button>
+	       <span id="fontSizeSpan" hidden={this.state.buttonsHidden}>{this.props.size}</span>
+	       <button id="increaseButton" hidden={this.state.buttonsHidden}>+</button>
+	       <span id="textSpan" style={style} onClick={this.handleClick.bind(this)}>{this.props.text}</span>
 	       </div>
 		);
     }
