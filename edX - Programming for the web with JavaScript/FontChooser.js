@@ -27,14 +27,24 @@ class FontChooser extends React.Component {
 	}
 
 	decreaseFontSize() {
-		this.setState({
-			fontSize: this.state.fontSize - 1
-		})
+		if (this.state.fontSize != this.props.min) {
+			this.setState({
+				fontSize: this.state.fontSize - 1
+			})
+		}
 	}
 
 	increaseFontSize() {
+		if (this.state.fontSize != this.props.max) {
+			this.setState({
+				fontSize: this.state.fontSize + 1
+			})
+		}
+	}
+
+	toDefaultSize() {
 		this.setState({
-			fontSize: this.state.fontSize + 1
+			fontSize: Number(this.props.size)
 		})
 	}
 
@@ -45,11 +55,15 @@ class FontChooser extends React.Component {
 			fontSize: this.state.fontSize
 		}
 
+		const fontSizeSpanStyle = {
+			color: this.state.fontSize == this.props.min || this.state.fontSize == this.props.max ? 'red' : 'black'
+		}
+
 		return(
 	       <div>
 	       <input type="checkbox" id="boldCheckbox" hidden={this.state.buttonsHidden} checked={this.state.bold} onChange={this.makeBold.bind(this)}/>
 	       <button id="decreaseButton" hidden={this.state.buttonsHidden} onClick={this.decreaseFontSize.bind(this)}>-</button>
-	       <span id="fontSizeSpan" hidden={this.state.buttonsHidden}>{this.state.fontSize}</span>
+	       <span id="fontSizeSpan" hidden={this.state.buttonsHidden} style={fontSizeSpanStyle} onDoubleClick={this.toDefaultSize.bind(this)}>{this.state.fontSize}</span>
 	       <button id="increaseButton" hidden={this.state.buttonsHidden} onClick={this.increaseFontSize.bind(this)}>+</button>
 	       <span id="textSpan" style={style} onClick={this.handleClick.bind(this)}>{this.props.text}</span>
 	       </div>
