@@ -7,22 +7,34 @@ class FontChooser extends React.Component {
 		}
     }
 	
+	componentDidMount() {
+		this.setState({
+			bold: this.props.bold === 'false' ? false : true
+		})
+	}
+
 	handleClick() {
 		this.setState({
 			buttonsHidden: this.state.buttonsHidden ? false : true
 		})
 	}
 
+	makeBold() {
+		this.setState({
+			bold: this.state.bold ? false : true
+		})
+	}
+
     render() {
 		
 		const style = {
-			fontWeight: this.props.bold === 'false' ? 'normal' : 'bold',
+			fontWeight: this.state.bold ? 'bold' : 'normal',
 			fontSize: this.props.size
 		}
 
 		return(
 	       <div>
-	       <input type="checkbox" id="boldCheckbox" hidden={this.state.buttonsHidden} />
+	       <input type="checkbox" id="boldCheckbox" hidden={this.state.buttonsHidden} checked={this.state.bold} onChange={this.makeBold.bind(this)}/>
 	       <button id="decreaseButton" hidden={this.state.buttonsHidden}>-</button>
 	       <span id="fontSizeSpan" hidden={this.state.buttonsHidden}>{this.props.size}</span>
 	       <button id="increaseButton" hidden={this.state.buttonsHidden}>+</button>
