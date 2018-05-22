@@ -7,10 +7,31 @@ class FontChooser extends React.Component {
 		}
     }
 	
-	componentDidMount() {
+	componentWillMount() {
+
+		let min = Number(this.props.min);
+		let max = Number(this.props.max);
+		let size = Number(this.props.size);
+
+		if (min < 1) {
+			min = 1
+		}
+		if (min > max) {
+			max = min;
+		}
+		if (size < min) {
+			size = min;
+
+		}
+		if (size > max) {
+			size = max;
+		}
+
 		this.setState({
 			bold: this.props.bold === 'false' ? false : true,
-			fontSize: Number(this.props.size)
+			fontSize: size,
+			min: min,
+			max: max
 		})
 	}
 
@@ -27,7 +48,7 @@ class FontChooser extends React.Component {
 	}
 
 	decreaseFontSize() {
-		if (this.state.fontSize != this.props.min) {
+		if (this.state.fontSize != this.state.min) {
 			this.setState({
 				fontSize: this.state.fontSize - 1
 			})
@@ -35,7 +56,7 @@ class FontChooser extends React.Component {
 	}
 
 	increaseFontSize() {
-		if (this.state.fontSize != this.props.max) {
+		if (this.state.fontSize != this.state.max) {
 			this.setState({
 				fontSize: this.state.fontSize + 1
 			})
@@ -56,7 +77,7 @@ class FontChooser extends React.Component {
 		}
 
 		const fontSizeSpanStyle = {
-			color: this.state.fontSize == this.props.min || this.state.fontSize == this.props.max ? 'red' : 'black'
+			color: this.state.fontSize == this.state.min || this.state.fontSize == this.state.max ? 'red' : 'black'
 		}
 
 		return(
