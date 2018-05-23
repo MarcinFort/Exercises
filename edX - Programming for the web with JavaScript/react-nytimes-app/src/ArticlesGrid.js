@@ -8,7 +8,35 @@ export class ArticlesGrid extends React.Component {
     };
 
     parse(input) {
-      return input;
+      if (!input || !input.response) {
+        return [];
+      }
+      let articles = input.response.docs;
+      let articlesWithImg = [];
+      let articlesWithoutImg = [];
+      for (let i = 0; i < articles.length; i++) {
+        let article = articles[i];
+        if (article.multimedia.find(this.isXL)) {
+          articlesWithImg.push({
+            id: article._id,
+            title: article.headline.main || 'Untitled',
+            imageURL: article.multimedia.find(this.isXL).url || '#',
+            webURL: article.web_url || '#'
+          })
+        } else {
+          articlesWithoutImg.push({
+            id: article._id,
+            title: article.headline.main || 'Untitled',
+            webURL: article.web_url || '#'
+          })
+        }
+      }
+      return [articlesWithImg, articlesWithoutImg];
+
+    }
+
+    isXL (image) {
+      return image.subtype === 'xlarge';
     }
 
     componentDidMount() {
