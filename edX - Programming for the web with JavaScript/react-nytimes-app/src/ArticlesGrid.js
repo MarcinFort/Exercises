@@ -1,6 +1,7 @@
 import React from 'react';
 import $  from 'jquery';
 import { ImgGrid } from './ImgGrid';
+import { NoImgLinks } from './NoImgLinks';
 
 export class ArticlesGrid extends React.Component {
 
@@ -28,7 +29,8 @@ export class ArticlesGrid extends React.Component {
           articlesWithoutImg.push({
             id: article._id,
             title: article.headline.main || 'Untitled',
-            webURL: article.web_url || '#'
+            webURL: article.web_url || '#',
+            snippet: article.snippet
           })
         }
       }
@@ -56,6 +58,11 @@ export class ArticlesGrid extends React.Component {
     }
 
     render() {
-      return <div></div>
+      return (
+        <div>
+          <ImgGrid articlesWithImg={this.state.articles.articlesWithImg}/>
+          <NoImgLinks articlesWithoutImg={this.state.articles.articlesWithoutImg}/>
+        </div>
+      )
     }
 } 

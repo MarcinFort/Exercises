@@ -7,9 +7,10 @@ export const ArticleWithImg = (article) => {
         <div className='article'>
             <a className='article-link' href={article.webURL}>
                 <img className='article-image'
+                    alt={article.title}
                     title={article.title}
                     src={imgURL} />
             </a>
         </div>
     );
-} 
+}
