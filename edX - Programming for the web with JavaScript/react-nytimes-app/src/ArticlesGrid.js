@@ -1,5 +1,6 @@
 import React from 'react';
 import $  from 'jquery';
+import { ImgGrid } from './ImgGrid';
 
 export class ArticlesGrid extends React.Component {
 
