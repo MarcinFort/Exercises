@@ -1,10 +1,10 @@
 import React from 'react';
 import { ArticleWithImg } from './ArticleWithImg';
 
-export const ImgGrid = (articlesWithImg) => {
+export const ImgGrid = (props) => {
     return(
         <div className="imgGrid">
-            {articlesWithImg.map(article => <ArticleWithImg article={article} />)}
+            {props.articlesWithImg.map(article => <ArticleWithImg article={article} />)}
         </div>
     )
 

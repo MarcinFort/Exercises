@@ -1,11 +1,10 @@
 import React from 'react';
 import { ArticleWithoutImg } from './ArticleWithoutImg';
 
-export const NoImgLinks = (articlesWithoutImg) => {
-
+export const NoImgLinks = (props) => {
     return(
         <div className="articlesWithoutImg">
-            {articlesWithoutImg.map(article => <ArticleWithoutImg article={article} />)}
+            {props.articlesWithoutImg.map(article => <ArticleWithoutImg article={article} />)}
         </div>
     )
     
