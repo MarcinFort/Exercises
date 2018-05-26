@@ -35,8 +35,6 @@ export class ArticlesGrid extends React.Component {
           })
         }
       }
-      console.log(articlesWithImg);
-      console.log(articlesWithoutImg)
       return [articlesWithImg, articlesWithoutImg];
 
     }
