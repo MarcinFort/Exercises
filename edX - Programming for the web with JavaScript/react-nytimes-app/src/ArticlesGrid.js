@@ -44,22 +44,20 @@ export class ArticlesGrid extends React.Component {
     }
 
     componentDidMount() {
+        let articlesWithImg = [];
+        let articlesWithoutImg = [];
         var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
         url += '?' + $.param({
           'api-key': "bc20e807da7947dd96c1a5da49d36990",
-          'sort': "newest"
+          'sort': "newest",
+          'page': 1
         });
-        $.ajax({
-          url: url,
-          method: 'GET',
-        }).done(function(result) {
+        fetch(url).then(result => result.json()).then(result => {
           return this.setState({ 
             articlesWithImg: (this.parse(result))[0],
             articlesWithoutImg: (this.parse(result))[1]
           });
-        }.bind(this)).fail(function(err) {
-          throw err;
-        });   
+        })
     }
 
     render() {
