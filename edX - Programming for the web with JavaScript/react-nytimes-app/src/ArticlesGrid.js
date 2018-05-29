@@ -1,5 +1,4 @@
 import React from 'react';
-import $  from 'jquery';
 import { ImgGrid } from './ImgGrid';
 import { NoImgLinks } from './NoImgLinks';
 
@@ -10,54 +9,64 @@ export class ArticlesGrid extends React.Component {
         articlesWithoutImg: []
     };
 
-    parse(input) {
-      if (!input || !input.response) {
-        return [];
-      }
-      let articles = input.response.docs;
-      let articlesWithImg = [];
-      let articlesWithoutImg = [];
-      for (let i = 0; i < articles.length; i++) {
-        let article = articles[i];
-        if (article.multimedia.find(this.isXL)) {
-          articlesWithImg.push({
-            id: article._id,
-            title: article.headline.main || 'Untitled',
-            imageURL: article.multimedia.find(this.isXL).url || '#',
-            webURL: article.web_url || '#'
-          })
-        } else {
-          articlesWithoutImg.push({
-            id: article._id,
-            title: article.headline.main || 'Untitled',
-            webURL: article.web_url || '#',
-            snippet: article.snippet
-          })
-        }
-      }
-      return [articlesWithImg, articlesWithoutImg];
-
-    }
-
     isXL (image) {
       return image.subtype === 'xlarge';
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let articlesWithImg = [];
         let articlesWithoutImg = [];
-        var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-        url += '?' + $.param({
-          'api-key': "bc20e807da7947dd96c1a5da49d36990",
-          'sort': "newest",
-          'page': 1
-        });
-        fetch(url).then(result => result.json()).then(result => {
-          return this.setState({ 
-            articlesWithImg: (this.parse(result))[0],
-            articlesWithoutImg: (this.parse(result))[1]
-          });
-        })
+        let page = 0;
+        const permUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=bc20e807da7947dd96c1a5da49d36990&sort=newest";
+        let url = "";
+        const self = this;
+        
+        const parse = input => {
+          if (!input || !input.response) {
+            return [];
+          }
+          let articles = input.response.docs;
+          for (let i = 0; i < articles.length; i++) {
+            let article = articles[i];
+            if (article.multimedia.find(this.isXL)) {
+              articlesWithImg.push({
+                id: article._id,
+                title: article.headline.main || 'Untitled',
+                imageURL: article.multimedia.find(this.isXL).url || '#',
+                webURL: article.web_url || '#'
+              })
+            } else {
+              articlesWithoutImg.push({
+                id: article._id,
+                title: article.headline.main || 'Untitled',
+                webURL: article.web_url || '#',
+                snippet: article.snippet
+              })
+            }
+          }
+        }    
+
+
+        let fetchNow = function() {
+          url = permUrl + "&page=" + page;
+          fetch(url)
+          .then(result => result.json())
+          .then(result => parse(result))
+          .then(() => {
+            if (articlesWithImg.length >= 4) {
+              self.setState({
+                articlesWithImg: articlesWithImg,
+                articlesWithoutImg: articlesWithoutImg
+              })
+            } else {
+              page++;
+              fetchNow();
+            }
+          })
+
+        }
+
+        fetchNow();
     }
 
     render() {
