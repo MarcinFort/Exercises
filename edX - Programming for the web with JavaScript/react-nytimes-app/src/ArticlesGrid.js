@@ -19,7 +19,6 @@ export class ArticlesGrid extends React.Component {
         let page = 0;
         const permUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=bc20e807da7947dd96c1a5da49d36990&sort=newest";
         let url = "";
-        const self = this;
         
         const parse = input => {
           if (!input || !input.response) {
@@ -47,18 +46,22 @@ export class ArticlesGrid extends React.Component {
         }    
 
 
-        let fetchNow = function() {
+        let fetchNow = () => {
           url = permUrl + "&page=" + page;
           fetch(url)
           .then(result => result.json())
           .then(result => parse(result))
           .then(() => {
             if (articlesWithImg.length >= 4) {
-              self.setState({
+              this.setState({
                 articlesWithImg: articlesWithImg,
                 articlesWithoutImg: articlesWithoutImg
               })
             } else {
+              this.setState({
+                articlesWithImg: articlesWithImg,
+                articlesWithoutImg: articlesWithoutImg
+              })
               page++;
               fetchNow();
             }
