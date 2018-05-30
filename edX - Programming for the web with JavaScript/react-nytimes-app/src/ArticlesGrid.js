@@ -52,21 +52,17 @@ export class ArticlesGrid extends React.Component {
           .then(result => result.json())
           .then(result => parse(result))
           .then(() => {
-            if (articlesWithImg.length >= 4) {
-              this.setState({
-                articlesWithImg: articlesWithImg,
-                articlesWithoutImg: articlesWithoutImg
-              })
-            } else {
-              this.setState({
-                articlesWithImg: articlesWithImg,
-                articlesWithoutImg: articlesWithoutImg
-              })
+            this.setState({
+              articlesWithImg: articlesWithImg,
+              articlesWithoutImg: articlesWithoutImg
+            })
+          })
+          .then(() => {
+            if (articlesWithImg.length < 12) {
               page++;
               fetchNow();
             }
           })
-
         }
 
         fetchNow();
