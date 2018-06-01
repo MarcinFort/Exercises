@@ -32,14 +32,19 @@ export class ArticlesGrid extends React.Component {
                 id: article._id,
                 title: article.headline.main || 'Untitled',
                 imageURL: article.multimedia.find(this.isXL).url || '#',
-                webURL: article.web_url || '#'
+                webURL: article.web_url || '#',
+                snippet: article.snippet,
+                type: article.type_of_material || "",
+                section: article.section_name || "Other"
               })
             } else {
               articlesWithoutImg.push({
                 id: article._id,
                 title: article.headline.main || 'Untitled',
                 webURL: article.web_url || '#',
-                snippet: article.snippet
+                snippet: article.snippet,
+                type: article.type_of_material || "",
+                section: article.section_name || "Other"
               })
             }
           }
