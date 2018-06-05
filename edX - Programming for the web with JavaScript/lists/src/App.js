@@ -21,6 +21,14 @@ class App extends Component {
    */
   handleAddList(s) {
       // Implement this function!
+      
+      let items = Object.assign({}, this.state.items);
+      items[s] = [];
+      
+      this.setState({
+        lists: this.state.lists.concat([s]),
+        items: items
+      })
   }
 
   /**
