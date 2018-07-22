@@ -67,6 +67,7 @@
       return;
     }
     document.querySelectorAll('div[data-key="'+code+'"]')[0].classList.add("playing");
+    document.querySelectorAll('audio[data-key="'+code+'"]')[0].currentTime = 0;
     document.querySelectorAll('audio[data-key="'+code+'"]')[0].play();
   });
 
