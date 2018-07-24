@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-size:cover;
+      font-family:'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display:flex;
+      flex:1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border:20px solid white;
+      border-radius:50%;
+      margin:50px auto;
+      position: relative;
+      padding:2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width:50%;
+      height:6px;
+      background:black;
+      position: absolute;
+      top:50%;
+      transform-origin: right 50%;
+    }
+
+  </style>
+
+  <script>
+    setInterval(() => {
+      let date = new Date();
+      
+      // Hours
+      let hours = date.getHours() < 13 ? date.getHours() : date.getHours() - 12;
+      let hour_degrees;
+      if (hours >= 9) hour_degrees = (hours - 9) * 30;
+      if (hours < 9) hour_degrees = hours * 30 + 90;
+      let hourhand = document.getElementsByClassName("hour-hand")[0];
+      hourhand.style.transform = "rotate("+hour_degrees+"deg)";
+
+      // Minutes
+      let mins = date.getMinutes();
+      let min_degrees;
+      if (mins >= 45) min_degrees = (mins - 45) * 6;
+      if (mins < 45) min_degrees = mins * 6 + 90;
+      let minhand = document.getElementsByClassName("min-hand")[0];
+      minhand.style.transform = "rotate("+min_degrees+"deg)";
+
+      // Seconds
+      let secs = date.getSeconds();
+      let sec_degrees;
+      if (secs >= 45) sec_degrees = (secs - 45) * 6;
+      if (secs < 45) sec_degrees = secs * 6 + 90;
+      let sechand = document.getElementsByClassName("second-hand")[0];
+      sechand.style.transform = "rotate("+sec_degrees+"deg)";
+
+    }, 1000);
+
+  </script>
+</body>
+</html>
