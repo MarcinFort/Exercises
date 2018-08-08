@@ -72,7 +72,7 @@
       transform: translateY(-100%);
     }
 
-    .panel.open > p:first-child {
+    .panel.active > p:first-child {
       transform: translateY(0);
     }
 
@@ -80,7 +80,7 @@
       transform: translateY(100%);
     }
 
-    .panel.open > p:last-child {
+    .panel.active > p:last-child {
       transform: translateY(0);
     }
 
@@ -133,14 +133,20 @@
   <script>
       const panels = [...document.getElementsByClassName("panel")];
 
-      const handleClick = (e) => {
+      const handleClickOpen = (e) => {
         panels.forEach(x => x.classList.remove("open"));
-        console.log(e.target);
         e.target.classList.add("open");
       }
 
+      const toggleActive = (e) => {
+        if (e.propertyName.includes("flex")) {
+          e.target.classList.toggle("active");
+        }
+      }
+
       panels.forEach(x => {
-        x.addEventListener("click", handleClick);
+        x.addEventListener("click", handleClickOpen);
+        x.addEventListener("transitionend", toggleActive);
       })
   </script>
 
