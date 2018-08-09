@@ -25,7 +25,18 @@ fetch(endpoint)
   .catch(error => console.error('Error: ', error))
   .then(response => response.forEach(x => cities.push(x)))
 
-const findCities = (query, cities) => cities.filter(x => x.city.toLowerCase().includes(query.toLowerCase()) || x.state.toLowerCase().includes(query.toLowerCase()));
+// Original version without RegEx:
+
+// const findCities = (query, cities) => cities.filter(x => x.city.toLowerCase().includes(query.toLowerCase()) || x.state.toLowerCase().includes(query.toLowerCase()));
+
+// Function with RegEx:
+
+const findCities = (query, cities) => {
+  return cities.filter(x => {
+    const regex = new RegExp(query, 'gi');
+    return x.city.match(regex) || x.state.match(regex);
+  });
+}
 
 const searchBox = document.getElementsByClassName("search")[0];
 const suggestions = document.getElementsByClassName("suggestions")[0];
