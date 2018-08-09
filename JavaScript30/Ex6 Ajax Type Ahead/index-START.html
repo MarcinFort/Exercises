@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const cities = [];
+
+fetch(endpoint)
+  .then(response => response.json())
+  .catch(error => console.error('Error: ', error))
+  .then(response => response.forEach(x => cities.push(x)))
+
+const findCities = (query, cities) => cities.filter(x => x.city.toLowerCase().includes(query.toLowerCase()) || x.state.toLowerCase().includes(query.toLowerCase()));
+
+const searchBox = document.getElementsByClassName("search")[0];
+const suggestions = document.getElementsByClassName("suggestions")[0];
+
+const showCities = () => {
+  const output = findCities(searchBox.value, cities);
+  const html = output.map(x => {
+    return `
+      <li>
+        <span class="name">${x.city}, ${x.state}</span>
+        <span class="population">${x.population}</span>
+      </li>
+    `;
+  }).join("");
+  suggestions.innerHTML = html;
+}
+
+searchBox.addEventListener("change", showCities);
+searchBox.addEventListener("keyup", showCities);
+
+</script>
+  </body>
+</html>
