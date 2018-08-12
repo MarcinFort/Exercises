@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+  let keysString = "";
+  const secretCode = "easteregg";
+
+  const easterEgg = () => {
+    cornify_add();
+    alert("Surprise!!!")
+  };
+
+  window.addEventListener('keyup', (e) => {
+    keysString += e.key.toString();
+    if (keysString.length > 9) keysString = keysString.substring(keysString.length - 9);
+    if (keysString === secretCode) {
+      easterEgg();
+    }
+  });
+</script>
+</body>
+</html>
