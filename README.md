@@ -14,6 +14,10 @@ Currently 27 challenges
 
 Node.js tutorial - in progress
 
+### JavaScript30 (a course by Wes Bos)
+
+Currently 21/30 challenges
+
 ### Other
 
 A decimal-binary-octal-hexadecimal value converter
