@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Whack A Mole!</title>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <h1>Whack-a-mole! <span class="score">0</span></h1>
+  <h1>Whack-a-mole!
+    <span class="score">0</span>
+  </h1>
   <button>Start!</button>
 
   <div class="game">
@@ -32,48 +36,58 @@
     </div>
   </div>
 
-<script>
-  const holes = document.querySelectorAll('.hole');
-  const scoreBoard = document.querySelector('.score');
-  const moles = document.querySelectorAll('.mole');
-  const button = document.querySelector('button');
+  <script>
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
+    const button = document.querySelector('button');
 
-  let timer = 0;
-  let gameIsOn = false;
-  let interval;
-  let score;
+    let timer = 0;
+    let gameIsOn = false;
+    let interval;
+    let score = 0;
 
-  const chooseTimeAtRandom = () => {
-    return Math.round((Math.random() * 1900) + 100);
-  };
+    const chooseTimeAtRandom = () => {
+      return Math.round((Math.random() * 1900) + 100);
+    };
 
-  const pickAHole = () => {
-    return (".hole" + (Math.ceil(Math.random() * 6)));
-  }
+    const pickAHole = () => {
+      return (".hole" + (Math.ceil(Math.random() * 6)));
+    }
 
-  const moleAppears = () => {
-    let hole = document.querySelector(pickAHole());
-    hole.classList.add("up");
-    let timer = chooseTimeAtRandom();
-    setTimeout(() => { hole.classList.remove("up") }, timer);
-  }
+    const moleAppears = () => {
+      let hole = document.querySelector(pickAHole());
+      hole.classList.add("up");
+      let timer = chooseTimeAtRandom();
+      setTimeout(() => { hole.classList.remove("up") }, timer);
+    }
 
-  const startGame = () => {
-    if (gameIsOn) return;
-    gameIsOn = true;
-    interval = setInterval(() => {
-      timer++;
-      moleAppears();
-      if (timer === 10) {
-        clearInterval(interval);
-        gameIsOn = false;
-        timer = 0;
-      }
-    }, 1000)
-  }
+    const updateScore = (e) => {
+      score++;
+      e.target.parentNode.classList.remove("up");
+      scoreBoard.innerHTML = score;
+    }
 
-  button.addEventListener("click", startGame);
+    const startGame = () => {
+      if (gameIsOn) return;
+      gameIsOn = true;
+      timer = 0;
+      score = 0;
+      scoreBoard.innerHTML = 0;
+      interval = setInterval(() => {
+        timer++;
+        moleAppears();
+        if (timer > 10) {
+          clearInterval(interval);
+          gameIsOn = false;
+        }
+      }, 1000)
+    }
 
-</script>
+    button.addEventListener("click", startGame);
+    moles.forEach(mole => mole.addEventListener("click", updateScore));
+
+  </script>
 </body>
+
 </html>
