@@ -43,11 +43,27 @@
   let interval;
   let score;
 
+  const chooseTimeAtRandom = () => {
+    return Math.round((Math.random() * 1900) + 100);
+  };
+
+  const pickAHole = () => {
+    return (".hole" + (Math.ceil(Math.random() * 6)));
+  }
+
+  const moleAppears = () => {
+    let hole = document.querySelector(pickAHole());
+    hole.classList.add("up");
+    let timer = chooseTimeAtRandom();
+    setTimeout(() => { hole.classList.remove("up") }, timer);
+  }
+
   const startGame = () => {
     if (gameIsOn) return;
     gameIsOn = true;
     interval = setInterval(() => {
       timer++;
+      moleAppears();
       if (timer === 10) {
         clearInterval(interval);
         gameIsOn = false;
