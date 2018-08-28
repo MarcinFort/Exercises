@@ -1,6 +1,6 @@
 # Exercises
 
-## Contents as of 25.5.2018:
+## Contents as of 28.8.2018:
 
 ### edX - Programming for the Web with JavaScript - all tasks
 
@@ -16,7 +16,7 @@ Node.js tutorial - in progress
 
 ### JavaScript30 (a course by Wes Bos)
 
-Currently 21/30 challenges
+All challenges completed (30/30)
 
 ### Other
 
